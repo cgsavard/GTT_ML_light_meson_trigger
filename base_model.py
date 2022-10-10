@@ -7,6 +7,8 @@ except ImportError:
 
 from caloGraphNN_keras import *
 
+# from https://github.com/jkiesele/caloGraphNN/blob/master/keras_models.py
+
 class GravNetClusteringModel(keras.Model):
     def __init__(self, n_neighbours=40, n_dimensions=4, n_filters=42, n_propagate=18, **kwargs):
         super(GravNetClusteringModel, self).__init__(**kwargs)
