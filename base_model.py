@@ -6,8 +6,25 @@ except ImportError:
     import keras
 
 from caloGraphNN_keras import *
+import vector
+import numpy as np
 
 # from https://github.com/jkiesele/caloGraphNN/blob/master/keras_models.py
+
+def calc_invariant_mass(pt, eta, phi, E):
+    return vector.obj(pt=pt, phi=phi, eta=eta, E=E).mass
+    #return vector.obj(pt=pt, phi=phi, eta=eta, E=pt*np.cosh(eta)).mass
+
+def calc_loss(y_pred, y_true):
+
+    M1 = calc_invariant_mass(y_true[0],y_true[1],y_true[2],y_true[3])
+    M2 = calc_invariant_mass(y_true[4],y_true[5],y_true[6],y_true[7])
+    m1 = calc_invariant_mass(y_pred[0],y_pred[1],y_pred[2],y_pred[3])
+    m2 = calc_invariant_mass(y_pred[4],y_pred[5],y_pred[6],y_pred[7])
+
+    loss = 1/2*np.sqrt(np.power(M1-m1,2)+np.power(M2-m2,2))
+
+    return loss
 
 class GravNetClusteringModel(keras.Model):
     def __init__(self, n_neighbours=40, n_dimensions=4, n_filters=42, n_propagate=18, **kwargs):
