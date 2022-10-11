@@ -81,7 +81,7 @@ class GravNet(keras.layers.Layer):
         self.n_dimensions = n_dimensions
         self.n_filters = n_filters
         self.n_propagate = n_propagate
-        self.name = name
+        self._name = name
         self.also_coordinates = also_coordinates
         self.feature_dropout = feature_dropout
         self.masked_coordinate_offset = masked_coordinate_offset

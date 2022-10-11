@@ -11,6 +11,7 @@ import numpy as np
 
 # from https://github.com/jkiesele/caloGraphNN/blob/master/keras_models.py
 
+'''
 def calc_invariant_mass(pt, eta, phi, E):
     return vector.obj(pt=pt, phi=phi, eta=eta, E=E).mass
     #return vector.obj(pt=pt, phi=phi, eta=eta, E=pt*np.cosh(eta)).mass
@@ -23,6 +24,13 @@ def calc_loss(y_pred, y_true):
     m2 = calc_invariant_mass(y_pred[4],y_pred[5],y_pred[6],y_pred[7])
 
     loss = 1/2*np.sqrt(np.power(M1-m1,2)+np.power(M2-m2,2))
+
+    return loss'''
+
+def calc_loss(y_pred, y_true):
+
+    diff = [t-p for t,p in zip(y_true,y_pred)]
+    loss = l/len(y_true)*np.sum(np.square(diff))
 
     return loss
 
